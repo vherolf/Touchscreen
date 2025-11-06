@@ -24,7 +24,6 @@ python two_images.py
 * clone the and install every thing in a user folder
 * add systemd script for autostart
 
-``` Tip
-on Raspberry best activate overlay file system when you run it in the field.
-send log files per internet or add a usb stick.
-```
+> [!TIP]
+> deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
+> send log files per internet or add a usb stick.
