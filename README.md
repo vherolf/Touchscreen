@@ -34,3 +34,18 @@ bash build.sh
 > [!TIP]
 > deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
 > send log files per internet or add a usb stick.
+
+
+## Build & Starting as systemd service as user
+
+```
+bash ./build.sh
+
+mkdir -p ~/bin
+
+cp dist/* ~/bin/
+
+cp touchscreen.service ~/.config/systemd/user
+
+systemctl --user daemon-reload && systemctl --user enable touchscreen.service && systemctl --user start touchscreen.service
+``` 
