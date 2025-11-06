@@ -23,7 +23,7 @@ python two_images.py
 ## Deploy on Linux
 
 * clone the and install every thing in a user folder
-* add systemd script for autostart as user
+* use autostart to run the ```touchscreen.sh```
 
 > [!TIP]
 > deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
