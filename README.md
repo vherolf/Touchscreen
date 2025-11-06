@@ -1,4 +1,3 @@
-
 # Touch screen learning tool
 
 
@@ -6,6 +5,7 @@
 
 ```
 git clone git@github.com:vherolf/Touchscreen.git
+cd Toucscreen
 python -m venv venv
 source venv/bin/activate
 pip install PySide6
@@ -14,15 +14,16 @@ pip install PySide6
 
 ## Running
 
-e.g.
+for example
 ```
+source venv/bin/activate
 python two_images.py
 ```
 
-## deploy on Linux
+## Deploy on Linux
 
 * clone the and install every thing in a user folder
-* add systemd script for autostart
+* add systemd script for autostart as user
 
 > [!TIP]
 > deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
