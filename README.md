@@ -8,7 +8,7 @@ git clone git@github.com:vherolf/Touchscreen.git
 cd Toucscreen
 python -m venv venv
 source venv/bin/activate
-pip install PySide6
+pip install -r requirements.txt
 ```
 
 
@@ -18,6 +18,12 @@ for example
 ```
 source venv/bin/activate
 python two_images.py
+```
+
+## Building executables
+
+```
+bash build.sh
 ```
 
 ## Deploy on Linux
