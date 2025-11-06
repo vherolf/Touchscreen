@@ -4,7 +4,8 @@
 ## Installation
 
 ```
-git clone git@github.com:vherolf/Touchscreen.git
+Clone Repo
+
 cd Toucscreen
 python -m venv venv
 source venv/bin/activate
