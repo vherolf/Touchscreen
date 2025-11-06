@@ -75,7 +75,7 @@ def startApp(sessionEndCallback = None):
 
     trainingWindow.showFullScreen()
     
-    sys.exit(app.exec())w
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
     app = startApp()
