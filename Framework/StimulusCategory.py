@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ImageCategory(Enum):
+class StimulusCategory(Enum):
     CORRECT = 1
     WRONG = 2
     OTHER = 3

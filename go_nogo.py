@@ -1,7 +1,7 @@
 from Framework.ImageButton import ImageButton
 from Framework.TrainingWindow import TrainingWindow
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 from PySide6.QtWidgets import QApplication, QHBoxLayout
 from PySide6.QtCore import Qt
@@ -18,7 +18,7 @@ class GoNoGoTraining(TrainingWindow):
 
         self.trainingImage = self.getImage()
 
-        self.button = ImageButton(self.trainingImage, self.imageClicked)
+        self.button = ImageButton(self.trainingImage, self.stimulusSelected)
         self.layout.addWidget(self.button, alignment=Qt.AlignCenter)
 
         self.timeoutTimer = self.startFunctionTimer(2000, self.timeoutTrial)
@@ -43,21 +43,21 @@ class GoNoGoTraining(TrainingWindow):
         self.logTrialStart()
 
     def timeoutTrial(self):
-        if self.trainingImage.imageCategory == ImageCategory.WRONG:
+        if self.trainingImage.stimulusCategory == StimulusCategory.WRONG:
             self.trialCompletedSuccessful()
-        elif self.trainingImage.imageCategory == ImageCategory.CORRECT:
+        elif self.trainingImage.stimulusCategory == StimulusCategory.CORRECT:
             self.trialCompletedUnscucessful()
 
-    def imageClicked(self, trainingImage: TrainingImage, event):
+    def stimulusSelected(self, trainingImage: TrainingStimulus):
         self.timeoutTimer.stop()
-        return super().imageClicked(trainingImage, event)
+        return super().stimulusSelected(trainingImage)
 
     def getImage(self):
         stimuli_path = os.path.join(os.path.dirname(__file__), "Training_Stimuli")
         image1 = os.path.join(stimuli_path, "Paintings", random.choice(os.listdir(os.path.join(stimuli_path, "Paintings"))))
         image2 = os.path.join(stimuli_path, "Underwater", random.choice(os.listdir(os.path.join(stimuli_path, "Underwater"))))
 
-        trainingImages = [TrainingImage(image1, ImageCategory.CORRECT), TrainingImage(image2, ImageCategory.WRONG)]
+        trainingImages = [TrainingStimulus(image1, StimulusCategory.CORRECT), TrainingStimulus(image2, StimulusCategory.WRONG)]
         random.shuffle(trainingImages)
 
         return trainingImages[0]
@@ -81,7 +81,7 @@ def createTouchscreenWindow(sessionEndCallback=None):
 
     return trainingWindow
 
-def startApp(sessionEndCallback = None):
+def startApp():
     app = QApplication([])
 
     trainingWindow = createTouchscreenWindow()

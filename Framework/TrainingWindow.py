@@ -1,12 +1,10 @@
-from PySide6.QtWidgets import QHBoxLayout, QWidget, QMainWindow
+from PySide6.QtWidgets import QHBoxLayout, QWidget
 from PySide6.QtGui import QColor
 from PySide6.QtCore import QTimer, Qt, QUrl, QCoreApplication
 from PySide6.QtMultimedia import QSoundEffect
-import sys
-import os, random
-from Framework.ImageButton import ImageButton
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+import os
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 import logging
 from datetime import datetime
@@ -56,13 +54,13 @@ class TrainingWindow(QWidget):
 
         self.logSessionStart()
 
-    def imageClicked(self, trainingImage: TrainingImage, event):
-        if trainingImage.imageCategory == ImageCategory.CORRECT:
+    def stimulusSelected(self, trainingStimulus: TrainingStimulus):
+        if trainingStimulus.stimulusCategory == StimulusCategory.CORRECT:
             self.trialCompletedSuccessful()
-        elif trainingImage.imageCategory == ImageCategory.WRONG:
+        elif trainingStimulus.stimulusCategory == StimulusCategory.WRONG:
             self.trialCompletedUnscucessful()
 
-        self.logImageClicked(trainingImage, event)
+        self.logStimulusSelected(trainingStimulus)
 
     def startFirstTrial(self):
         raise NotImplementedError("Please Implement this method")
@@ -163,24 +161,8 @@ class TrainingWindow(QWidget):
     def logTrialEnd(self, successful):
         logging.info(f"Trial End, trial success: {successful}")
     
-    def logImageClicked(self, trainingImage, event):
-        logging.info(f"Image clicked, file path: {trainingImage.filePath}, click location: ({event.position().x()}|{event.position().y()}), image category: {trainingImage.imageCategory}")
-
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Escape or event.key() == Qt.Key_Q:
-            self.closeApp()
-        super().keyPressEvent(event)
-
-    def closeApp(self):
-        print("Closing Application")
-        app = QCoreApplication.instance()
-        app.closeAllWindows()
-        app.quit()
-
-class MainWindow(QMainWindow):
-
-    def __init__(self, parent=None):
-        super().__init__(parent=parent)
+    def logStimulusSelected(self, trainingStimulus: TrainingStimulus):
+        logging.info(f"Stimulus selected, file path: {trainingStimulus.filePath}, stimulus category: {trainingStimulus.stimulusCategory}")
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape or event.key() == Qt.Key_Q:

@@ -1,7 +1,7 @@
 from Framework.ImageButton import ImageButton
 from Framework.TrainingWindow import TrainingWindow
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 from PySide6.QtWidgets import QApplication, QGridLayout
 from PySide6.QtCore import Qt
@@ -19,14 +19,14 @@ class SequentialLearningTraining(TrainingWindow):
         self.trainingImages = self.getImages()
         self.buttons = []
         
-        self.buttons.append(ImageButton(self.trainingImages[0], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[1], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[2], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[3], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[4], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[5], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[6], self.imageClicked, (150, 150)))
-        self.buttons.append(ImageButton(self.trainingImages[7], self.imageClicked, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[0], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[1], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[2], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[3], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[4], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[5], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[6], self.stimulusSelected, (150, 150)))
+        self.buttons.append(ImageButton(self.trainingImages[7], self.stimulusSelected, (150, 150)))
         
         self.layout.addWidget(self.buttons[0], 1, 0, alignment=Qt.AlignCenter)
         self.layout.addWidget(self.buttons[1], 1, 1, alignment=Qt.AlignCenter)
@@ -41,8 +41,8 @@ class SequentialLearningTraining(TrainingWindow):
         
         self.logTrialStart()
 
-    def imageClicked(self, trainingImage: TrainingImage, event):
-        result = super().imageClicked(trainingImage, event)
+    def stimulusSelected(self, trainingImage: TrainingStimulus, event):
+        result = super().stimulusSelected(trainingImage, event)
     
         if trainingImage == self.trainingImages[self.sequenceIndex]:
             if self.sequenceIndex == 7:
@@ -94,7 +94,7 @@ class SequentialLearningTraining(TrainingWindow):
     def getImages(self):
         image = os.path.join(os.path.dirname(__file__), "Training_Stimuli", "Geometric_Shapes", "Circle_Red.png")
 
-        trainingImage = TrainingImage(image, ImageCategory.OTHER)
+        trainingImage = TrainingStimulus(image, StimulusCategory.OTHER)
 
         trainingImages = []
 
@@ -122,7 +122,7 @@ def createTouchscreenWindow(sessionEndCallback=None):
 
     return trainingWindow
 
-def startApp(sessionEndCallback = None):
+def startApp():
     app = QApplication([])
 
     trainingWindow = createTouchscreenWindow()

@@ -1,7 +1,7 @@
 from Framework.ImageButton import ImageButton
 from Framework.TrainingWindow import TrainingWindow
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QWidget
 from PySide6.QtCore import Qt
@@ -34,11 +34,11 @@ class MatchingToSampleTraining(TrainingWindow):
 
         correctImage, trainingImages = self.getImages()
         
-        self.button0 = ImageButton(correctImage, self.imageClicked, imageSize=(250,250))
+        self.button0 = ImageButton(correctImage, self.stimulusSelected, imageSize=(250,250))
         self.exampleImagesLayout.addWidget(self.button0, alignment=Qt.AlignCenter)
 
-        self.button1 = ImageButton(trainingImages[0], self.imageClicked, imageSize=(250,250))
-        self.button2 = ImageButton(trainingImages[1], self.imageClicked, imageSize=(250,250))
+        self.button1 = ImageButton(trainingImages[0], self.stimulusSelected, imageSize=(250,250))
+        self.button2 = ImageButton(trainingImages[1], self.stimulusSelected, imageSize=(250,250))
         self.decisionImagesLayout.addWidget(self.button1, alignment=Qt.AlignCenter)
         self.decisionImagesLayout.addWidget(self.button2, alignment=Qt.AlignCenter)
 
@@ -83,13 +83,13 @@ class MatchingToSampleTraining(TrainingWindow):
         
         for image in images:
             if image == correctImage:
-                trainingImages.append(TrainingImage(os.path.join(stimuli_path, image), ImageCategory.CORRECT))
+                trainingImages.append(TrainingStimulus(os.path.join(stimuli_path, image), StimulusCategory.CORRECT))
             else:
-                trainingImages.append(TrainingImage(os.path.join(stimuli_path, image), ImageCategory.WRONG))
+                trainingImages.append(TrainingStimulus(os.path.join(stimuli_path, image), StimulusCategory.WRONG))
 
         random.shuffle(trainingImages)
 
-        return TrainingImage(os.path.join(stimuli_path, correctImage), ImageCategory.OTHER), trainingImages
+        return TrainingStimulus(os.path.join(stimuli_path, correctImage), StimulusCategory.OTHER), trainingImages
 
 def createTouchscreenWindow(sessionEndCallback=None):
     sessionConfig = SessionConfig(interTrialInterval=2000,
@@ -110,7 +110,7 @@ def createTouchscreenWindow(sessionEndCallback=None):
 
     return trainingWindow
 
-def startApp(sessionEndCallback = None):
+def startApp():
     app = QApplication([])
 
     trainingWindow = createTouchscreenWindow()

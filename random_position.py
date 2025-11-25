@@ -1,7 +1,7 @@
 from Framework.ImageButton import ImageButton
 from Framework.TrainingWindow import TrainingWindow
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 from PySide6.QtWidgets import QApplication, QGridLayout, QWidget, QHBoxLayout
 from PySide6.QtCore import Qt
@@ -28,7 +28,7 @@ class RandomPositionTraining(TrainingWindow):
                 cellLayout =  QHBoxLayout(cell)
 
                 if i == column and j == row:
-                    cellLayout.addWidget(ImageButton(trainingImage, self.imageClicked, imageSize=(250,250)), alignment=Qt.AlignCenter)
+                    cellLayout.addWidget(ImageButton(trainingImage, self.stimulusSelected, imageSize=(250,250)), alignment=Qt.AlignCenter)
                 
                 self.layout.addWidget(cell, j, i, alignment=Qt.AlignCenter)
                 self.cells.append(cellLayout)
@@ -45,7 +45,7 @@ class RandomPositionTraining(TrainingWindow):
             if item is not None:
                 item.widget().changeImage(None)
             if i == cellIndex:
-                self.cells[i].addWidget(ImageButton(trainingImage, self.imageClicked, imageSize=(250,250)), alignment=Qt.AlignCenter)
+                self.cells[i].addWidget(ImageButton(trainingImage, self.stimulusSelected, imageSize=(250,250)), alignment=Qt.AlignCenter)
 
         self.container.show()
         self.container.update()
@@ -61,7 +61,7 @@ class RandomPositionTraining(TrainingWindow):
         stimuli_path = os.path.join(os.path.dirname(__file__), "Training_Stimuli")
         image = os.path.join(stimuli_path, "Geometric_Shapes", random.choice(os.listdir(os.path.join(stimuli_path, "Geometric_Shapes"))))
 
-        trainingImage = TrainingImage(image, ImageCategory.CORRECT)
+        trainingImage = TrainingStimulus(image, StimulusCategory.CORRECT)
 
         return trainingImage
 
@@ -84,7 +84,7 @@ def createTouchscreenWindow(sessionEndCallback=None):
 
     return trainingWindow
 
-def startApp(sessionEndCallback = None):
+def startApp():
     app = QApplication([])
 
     trainingWindow = createTouchscreenWindow()

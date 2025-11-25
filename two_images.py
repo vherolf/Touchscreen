@@ -1,7 +1,7 @@
 from Framework.ImageButton import ImageButton
 from Framework.TrainingWindow import TrainingWindow
-from Framework.TrainingImage import TrainingImage
-from Framework.ImageCategory import ImageCategory
+from Framework.TrainingStimulus import TrainingStimulus
+from Framework.StimulusCategory import StimulusCategory
 from Framework.SessionConfig import SessionConfig
 from PySide6.QtWidgets import QApplication, QHBoxLayout
 from PySide6.QtCore import Qt
@@ -18,8 +18,8 @@ class TwoImagesTraining(TrainingWindow):
 
         trainingImages = self.getImages()
 
-        self.button1 = ImageButton(trainingImages[0], self.imageClicked)
-        self.button2 = ImageButton(trainingImages[1], self.imageClicked)
+        self.button1 = ImageButton(trainingImages[0], self.stimulusSelected)
+        self.button2 = ImageButton(trainingImages[1], self.stimulusSelected)
         self.layout.addWidget(self.button1, alignment=Qt.AlignCenter)
         self.layout.addWidget(self.button2, alignment=Qt.AlignCenter)
         
@@ -44,7 +44,7 @@ class TwoImagesTraining(TrainingWindow):
         image1 = os.path.join(stimuli_path, "Paintings", random.choice(os.listdir(os.path.join(stimuli_path, "Paintings"))))
         image2 = os.path.join(stimuli_path, "Underwater", random.choice(os.listdir(os.path.join(stimuli_path, "Underwater"))))
 
-        trainingImages = [TrainingImage(image1, ImageCategory.CORRECT), TrainingImage(image2, ImageCategory.WRONG)]
+        trainingImages = [TrainingStimulus(image1, StimulusCategory.CORRECT), TrainingStimulus(image2, StimulusCategory.WRONG)]
         random.shuffle(trainingImages)
 
         return trainingImages
@@ -68,7 +68,7 @@ def createTouchscreenWindow(sessionEndCallback=None):
 
     return trainingWindow
 
-def startApp(sessionEndCallback = None):
+def startApp():
     app = QApplication([])
 
     trainingWindow = createTouchscreenWindow()
