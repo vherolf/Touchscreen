@@ -1,3 +1,4 @@
+# 
 from PySide6.QtCore import QThread, Signal
 from Framework.TrainingStimulus import TrainingStimulus
 from Framework.ImageStimulusDisplay import ImageStimulusDisplay
@@ -13,12 +14,12 @@ class KeyboardInputImage(ImageStimulusDisplay):
         
         self.keyPressed.connect(self.stimulusSelected)
 
-        listener = Listener(
-        on_press=self.on_press)
+        listener = Listener(on_press=self.on_press)
         listener.start()
 
     
     def on_press(self, key):
+        print(key)
         try:
             if key.char == self.shortcut:
                 self.keyPressed.emit()
