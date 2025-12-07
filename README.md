@@ -23,13 +23,17 @@ python two_images.py
 
 ## Building executables
 
+Clone the and install every thing in a user folder.
+
+
 ```
+cd ./Touchscreen/App
+
 bash build.sh
 ```
 
 ## Deploy on Linux
 
-Clone the and install every thing in a user folder.
 
 ### Simple start script for testing
 
@@ -40,11 +44,11 @@ edit script for the the App you wanna use and run the ```touchscreen.sh```
 Edit ```touchscreen.service``` for which App to start.  
 
 ```
-bash ./build.sh
+cd Touchscreen
 
 mkdir -p ~/bin
 
-cp dist/* ~/bin/
+cp App/dist/* ~/bin/
 
 cp touchscreen.service ~/.config/systemd/user
 
