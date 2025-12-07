@@ -6,7 +6,7 @@ After=graphical-session.target
 [Service]
 Type=exec
 Restart=no
-ExecStart=%h/two_images
+ExecStart=%h/bin/two_images
 
 [Install]
 WantedBy=graphical-session.target

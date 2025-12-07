@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# simple start script for testing 
+
 # Source - https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
 # Posted by dogbane
 # Retrieved 2025-11-06, License - CC BY-SA 4.0

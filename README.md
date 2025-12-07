@@ -29,15 +29,15 @@ bash build.sh
 
 ## Deploy on Linux
 
-* clone the and install every thing in a user folder
-* use autostart to run the ```touchscreen.sh```
+Clone the and install every thing in a user folder.
 
-> [!TIP]
-> deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
-> send log files per internet or add a usb stick.
+### Simple start script for testing
 
+edit script for the the App you wanna use and run the ```touchscreen.sh```
 
-## Build & Starting as systemd service as user
+### Build & Starting as systemd service as user
+
+Edit ```touchscreen.service``` for which App to start.  
 
 ```
 bash ./build.sh
@@ -50,3 +50,8 @@ cp touchscreen.service ~/.config/systemd/user
 
 systemctl --user daemon-reload && systemctl --user enable touchscreen.service && systemctl --user start touchscreen.service
 ``` 
+
+
+> [!TIP]
+> deploying on a Raspberry than activate "overlay file" to prevent SD card corruption.
+> send log files per internet or add a usb stick.
